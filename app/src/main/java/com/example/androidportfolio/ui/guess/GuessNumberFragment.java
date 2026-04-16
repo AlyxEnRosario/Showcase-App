@@ -14,12 +14,11 @@ import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
 
 import com.example.androidportfolio.R;
+import com.example.androidportfolio.data.LocalLeaderboardManager;
 import com.example.androidportfolio.databinding.FragmentGuessBinding;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -30,7 +29,7 @@ public class GuessNumberFragment extends Fragment {
     private int secretNumber;
     private int strikesLeft = 10;
     private int previousGuess = -1;
-    private FirebaseFirestore firestore;
+    private LocalLeaderboardManager leaderboardManager;
     private SharedPreferences sharedPreferences;
 
     @Override
@@ -39,8 +38,8 @@ public class GuessNumberFragment extends Fragment {
         binding = FragmentGuessBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        firestore = FirebaseFirestore.getInstance();
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        leaderboardManager = new LocalLeaderboardManager(sharedPreferences);
 
         initGame();
 
@@ -147,37 +146,28 @@ public class GuessNumberFragment extends Fragment {
             sharedPreferences.edit().putInt("high_score", score).apply();
         }
 
-        // Save to Firebase
-        Map<String, Object> scoreData = new HashMap<>();
-        scoreData.put("playerName", playerName);
-        scoreData.put("score", score);
-        scoreData.put("timestamp", System.currentTimeMillis());
-        scoreData.put("won", won);
-
-        firestore.collection("scores")
-                .add(scoreData)
-                .addOnSuccessListener(documentReference -> Toast.makeText(getContext(), "Score saved!", Toast.LENGTH_SHORT).show())
-                .addOnFailureListener(e -> Toast.makeText(getContext(), "Error saving score", Toast.LENGTH_SHORT).show());
+        // Save to local leaderboard
+        leaderboardManager.saveScore(playerName, score, won);
+        Toast.makeText(getContext(), "Score saved!", Toast.LENGTH_SHORT).show();
     }
 
     private void showLeaderboard() {
-        firestore.collection("scores")
-                .orderBy("score", Query.Direction.DESCENDING)
-                .limit(10)
-                .get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        StringBuilder leaderboard = new StringBuilder("Top 10 Scores:\n\n");
-                        int rank = 1;
-                        for (QueryDocumentSnapshot document : task.getResult()) {
-                            String name = document.getString("playerName");
-                            long score = document.getLong("score");
-                            leaderboard.append(rank).append(". ").append(name).append(" - ").append(score).append("\n");
-                            rank++;
-                        }
-                        binding.feedback.setText(leaderboard.toString());
-                    }
-                });
+        List<Map<String, Object>> topScores = leaderboardManager.getTopScores(10);
+        
+        StringBuilder leaderboard = new StringBuilder("Top 10 Scores:\n\n");
+        if (topScores.isEmpty()) {
+            leaderboard.append("No scores yet. Play a game!");
+        } else {
+            int rank = 1;
+            for (Map<String, Object> scoreEntry : topScores) {
+                String name = (String) scoreEntry.get("playerName");
+                Number scoreNum = (Number) scoreEntry.get("score");
+                long score = scoreNum.longValue();
+                leaderboard.append(rank).append(". ").append(name).append(" - ").append(score).append("\n");
+                rank++;
+            }
+        }
+        binding.feedback.setText(leaderboard.toString());
     }
 
     @Override

@@ -1,6 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
-    // id("com.google.gms.google-services")  // TODO: Re-enable when google-services.json is available
+    // id("com.google.gms.google-services")  // Using local leaderboard instead
 }
 
 android {
@@ -43,11 +43,6 @@ dependencies {
     implementation(libs.lifecycle.livedata.ktx)
     implementation(libs.lifecycle.viewmodel.ktx)
     implementation(libs.navigation.fragment)
-    
-    // Firebase
-    implementation(platform(libs.firebase.bom))
-    implementation(libs.firebase.firestore)
-    implementation(libs.firebase.auth)
     
     // Retrofit & JSON
     implementation(libs.retrofit)

@@ -48,7 +48,6 @@ A fun Android app with games, drawing, and cool features!
 - Drawing cache is properly managed to prevent memory leaks
 
 ### Firebase Integration
-- Batch operations for better performance
 - Error handling and user feedback
 - Proper collection structure for scalability
 - Server timestamps for accurate sorting
