@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Android Portfolio
 
 A fun Android app with games, drawing, and cool features!
