@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.example.androidportfolio.ui.home.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/nav_madlibs"
+        android:name="com.example.androidportfolio.ui.madlibs.MadLibsFragment"
+        android:label="@string/menu_madlibs"
+        tools:layout="@layout/fragment_madlibs" />
+
+    <fragment
+        android:id="@+id/nav_scifi"
+        android:name="com.example.androidportfolio.ui.scifi.SciFiNameFragment"
+        android:label="@string/menu_scifi"
+        tools:layout="@layout/fragment_scifi" />
+
+    <fragment
+        android:id="@+id/nav_guess"
+        android:name="com.example.androidportfolio.ui.guess.GuessNumberFragment"
+        android:label="@string/menu_guess"
+        tools:layout="@layout/fragment_guess" />
+
+    <fragment
+        android:id="@+id/nav_pokemon"
+        android:name="com.example.androidportfolio.ui.pokemon.PokemonFragment"
+        android:label="@string/menu_pokemon"
+        tools:layout="@layout/fragment_pokemon" />
+
+    <fragment
+        android:id="@+id/nav_doodle"
+        android:name="com.example.androidportfolio.ui.doodle.DoodleFragment"
+        android:label="@string/menu_doodle"
+        tools:layout="@layout/fragment_doodle" />
+</navigation>

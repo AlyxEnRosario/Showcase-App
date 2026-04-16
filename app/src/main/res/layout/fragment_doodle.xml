@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="8dp"
+    tools:context=".ui.doodle.DoodleFragment">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/doodle_title"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <!-- RGB Color Selectors -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="8dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Red:"
+            android:textSize="12sp" />
+
+        <SeekBar
+            android:id="@+id/red_seek_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="255" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Green:"
+            android:textSize="12sp"
+            android:layout_marginTop="4dp" />
+
+        <SeekBar
+            android:id="@+id/green_seek_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="255" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Blue:"
+            android:textSize="12sp"
+            android:layout_marginTop="4dp" />
+
+        <SeekBar
+            android:id="@+id/blue_seek_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="255" />
+    </LinearLayout>
+
+    <!-- Color Preview -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp"
+        android:gravity="center_vertical">
+
+        <View
+            android:id="@+id/color_preview"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@android:color/black"
+            android:layout_marginEnd="8dp" />
+
+        <TextView
+            android:id="@+id/color_value"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="RGB(0, 0, 0)"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <!-- Drawing Canvas -->
+    <com.example.androidportfolio.ui.doodle.DrawingCanvas
+        android:id="@+id/drawing_canvas"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="8dp"
+        android:background="@android:color/white" />
+
+    <!-- Buttons -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/clear_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/doodle_clear"
+            android:layout_marginEnd="8dp" />
+
+        <Button
+            android:id="@+id/save_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/doodle_save" />
+    </LinearLayout>
+
+</LinearLayout>

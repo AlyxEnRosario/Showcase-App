@@ -1,0 +1,5 @@
+// Main build file for the whole project
+plugins {
+    alias(libs.plugins.android.application) apply false
+    alias(libs.plugins.google.services) apply false
+}

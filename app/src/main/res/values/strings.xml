@@ -1,0 +1,49 @@
+<resources>
+    <string name="app_name">Android Portfolio</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Braeden Boyles</string>
+    <string name="nav_header_subtitle">braeden.boyles@stu.evsck12.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- Menu Items -->
+    <string name="menu_home">Home</string>
+    <string name="menu_madlibs">Mad Libs</string>
+    <string name="menu_scifi">Sci-Fi Names</string>
+    <string name="menu_guess">Guess the Number</string>
+    <string name="menu_pokemon">Pokemon Team</string>
+    <string name="menu_doodle">Doodle</string>
+    <string name="menu_settings">Settings</string>
+
+    <!-- Activity Titles -->
+    <string name="settings_title">Settings</string>
+
+    <!-- Home Fragment -->
+    <string name="home_title">Welcome to My Portfolio!</string>
+    <string name="profile_image">Profile Image</string>
+    <string name="bio_placeholder">I am an 18-year-old tech enthusiast graduating from Francis Joseph Reitz High School with a focus in Computer Science and Software Development. A true "Jack of All Trades" with diverse experience in mobile development, game design, web development, and creative tools. Passionate about building innovative solutions and exploring new technologies. Creative developer who spends free time working on personal projects and collaborating with team members on various creative and technical endeavors. This can stretch anywhere from just art to making whole games and models.</string>
+    <string name="interests_title">Technical Interests:</string>
+    <string name="interests_list">• Android Development (Java)\n• Game Development (Unity, Haxeflixel)\n• VRChat Content Creation\n• 3D Modeling &amp; Animation (Blender, Substance Painter)\n• Web Development (HTML/CSS)\n• Music Production (FL Studio)\n• Digital Art &amp; Design (Ibis Paint)\n• Documentation &amp; Technical Writing (MKDocs)</string>
+    
+
+    <!-- Mad Libs Fragment -->
+    <string name="madlibs_title">Mad Libs Generator</string>
+    <string name="madlibs_button">Generate Story</string>
+
+    <!-- Sci-Fi Fragment -->
+    <string name="scifi_title">Sci-Fi Name Generator</string>
+    <string name="scifi_button">Generate Name</string>
+
+    <!-- Guess Number Fragment -->
+    <string name="guess_title">Guess the Number</string>
+    <string name="guess_button">Submit Guess</string>
+
+    <!-- Pokemon Fragment -->
+    <string name="pokemon_title">Pokemon Team</string>
+
+    <!-- Doodle Fragment -->
+    <string name="doodle_title">Drawing Canvas</string>
+    <string name="doodle_save">Save Drawing</string>
+    <string name="doodle_clear">Clear</string>
+</resources>
