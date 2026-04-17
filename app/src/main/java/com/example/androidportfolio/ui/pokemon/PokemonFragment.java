@@ -40,10 +40,40 @@ public class PokemonFragment extends Fragment {
         setupRetrofit();
         adapter = new PokemonCardAdapter(pokemonList);
         binding.pokemonViewPager.setAdapter(adapter);
+        
+        // Setup ViewPager page change listener to update counter
+        binding.pokemonViewPager.registerOnPageChangeCallback(new androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                updateCounter(position);
+            }
+        });
+
+        // Setup button listeners
+        binding.btnPreviousPokemon.setOnClickListener(v -> previousPokemon());
+        binding.btnNextPokemon.setOnClickListener(v -> nextPokemon());
 
         fetchPokemonData();
 
         return root;
+    }
+
+    private void previousPokemon() {
+        int currentPosition = binding.pokemonViewPager.getCurrentItem();
+        if (currentPosition > 0) {
+            binding.pokemonViewPager.setCurrentItem(currentPosition - 1, true);
+        }
+    }
+
+    private void nextPokemon() {
+        int currentPosition = binding.pokemonViewPager.getCurrentItem();
+        if (currentPosition < pokemonList.size() - 1) {
+            binding.pokemonViewPager.setCurrentItem(currentPosition + 1, true);
+        }
+    }
+
+    private void updateCounter(int position) {
+        binding.pokemonCounter.setText((position + 1) + " / " + favoriteIds.length);
     }
 
     private void setupRetrofit() {

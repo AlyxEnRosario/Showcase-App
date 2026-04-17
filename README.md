@@ -64,6 +64,3 @@ A fun Android app with games, drawing, and cool features!
 - [Firebase Documentation](https://firebase.google.com/docs)
 - [PokeAPI Documentation](https://pokeapi.co/)
 - [Material Design Guidelines](https://material.io/design)
-=======
-# Showcase-App
->>>>>>> 9575be675cf66b959f29a732beaf2351108f0b6b

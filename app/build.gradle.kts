@@ -1,6 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
-    // id("com.google.gms.google-services")  // Using local leaderboard instead
+    alias(libs.plugins.google.services)
 }
 
 android {
@@ -58,6 +58,11 @@ dependencies {
     
     // Preferences
     implementation(libs.preference)
+    
+    // Firebase
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.firestore)
+    implementation(libs.firebase.auth)
     
     implementation(libs.navigation.ui)
     testImplementation(libs.junit)

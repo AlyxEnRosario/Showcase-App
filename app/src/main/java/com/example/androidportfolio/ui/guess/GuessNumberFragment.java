@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
 
 import com.example.androidportfolio.R;
+import com.example.androidportfolio.data.FirebaseLeaderboardManager;
 import com.example.androidportfolio.data.LocalLeaderboardManager;
 import com.example.androidportfolio.databinding.FragmentGuessBinding;
 
@@ -30,6 +31,7 @@ public class GuessNumberFragment extends Fragment {
     private int strikesLeft = 10;
     private int previousGuess = -1;
     private LocalLeaderboardManager leaderboardManager;
+    private FirebaseLeaderboardManager firebaseLeaderboardManager;
     private SharedPreferences sharedPreferences;
 
     @Override
@@ -39,6 +41,7 @@ public class GuessNumberFragment extends Fragment {
         View root = binding.getRoot();
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        firebaseLeaderboardManager = new FirebaseLeaderboardManager();
         leaderboardManager = new LocalLeaderboardManager(sharedPreferences);
 
         initGame();
@@ -148,26 +151,65 @@ public class GuessNumberFragment extends Fragment {
 
         // Save to local leaderboard
         leaderboardManager.saveScore(playerName, score, won);
-        Toast.makeText(getContext(), "Score saved!", Toast.LENGTH_SHORT).show();
+        
+        // Save to Firebase
+        firebaseLeaderboardManager.saveScore(playerName, score, won, new FirebaseLeaderboardManager.SaveCallback() {
+            @Override
+            public void onSuccess() {
+                Toast.makeText(getContext(), "🎉 Score saved to cloud!", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(String error) {
+                Toast.makeText(getContext(), "Cloud save failed, saved locally instead", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void showLeaderboard() {
-        List<Map<String, Object>> topScores = leaderboardManager.getTopScores(10);
+        binding.feedback.setText("Loading leaderboard...");
         
-        StringBuilder leaderboard = new StringBuilder("Top 10 Scores:\n\n");
-        if (topScores.isEmpty()) {
-            leaderboard.append("No scores yet. Play a game!");
-        } else {
-            int rank = 1;
-            for (Map<String, Object> scoreEntry : topScores) {
-                String name = (String) scoreEntry.get("playerName");
-                Number scoreNum = (Number) scoreEntry.get("score");
-                long score = scoreNum.longValue();
-                leaderboard.append(rank).append(". ").append(name).append(" - ").append(score).append("\n");
-                rank++;
+        firebaseLeaderboardManager.getTopScores(10, new FirebaseLeaderboardManager.LeaderboardCallback() {
+            @Override
+            public void onSuccess(List<Map<String, Object>> scores) {
+                StringBuilder leaderboard = new StringBuilder("🏆 Top 10 Cloud Scores:\n\n");
+                if (scores.isEmpty()) {
+                    leaderboard.append("No scores yet. Be the first!");
+                } else {
+                    int rank = 1;
+                    for (Map<String, Object> scoreEntry : scores) {
+                        String name = (String) scoreEntry.get("playerName");
+                        Number scoreNum = (Number) scoreEntry.get("score");
+                        long score = scoreNum.longValue();
+                        leaderboard.append(rank).append(". ").append(name).append(" - ").append(score).append("\n");
+                        rank++;
+                    }
+                }
+                binding.feedback.setText(leaderboard.toString());
             }
-        }
-        binding.feedback.setText(leaderboard.toString());
+
+            @Override
+            public void onFailure(String error) {
+                // Fallback to local leaderboard if Firebase fails
+                List<Map<String, Object>> topScores = leaderboardManager.getTopScores(10);
+                
+                StringBuilder leaderboard = new StringBuilder("📱 Local Top 10 Scores:\n\n");
+                if (topScores.isEmpty()) {
+                    leaderboard.append("No scores yet. Play a game!");
+                } else {
+                    int rank = 1;
+                    for (Map<String, Object> scoreEntry : topScores) {
+                        String name = (String) scoreEntry.get("playerName");
+                        Number scoreNum = (Number) scoreEntry.get("score");
+                        long score = scoreNum.longValue();
+                        leaderboard.append(rank).append(". ").append(name).append(" - ").append(score).append("\n");
+                        rank++;
+                    }
+                }
+                binding.feedback.setText(leaderboard.toString());
+                Toast.makeText(getContext(), "Showing local scores", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override

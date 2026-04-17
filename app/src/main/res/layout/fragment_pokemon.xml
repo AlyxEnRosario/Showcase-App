@@ -20,13 +20,47 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Swipe to view different Pokemon"
+        android:text="Swipe or use buttons to view different Pokemon"
         android:textSize="12sp" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/pokemon_view_pager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:layout_marginTop="16dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/btn_previous_pokemon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="← Previous"
+            android:layout_marginEnd="8dp" />
+
+        <TextView
+            android:id="@+id/pokemon_counter"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="1 / 7"
+            android:textAlignment="center"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btn_next_pokemon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Next →"
+            android:layout_marginStart="8dp" />
+
+    </LinearLayout>
 
 </LinearLayout>
